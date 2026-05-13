@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Text Switcher</title>
+    <style>
+        /* Mengatur latar belakang dengan gradien modern */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Container utama dengan efek Glassmorphism */
+        .card {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            width: 350px;
+        }
+
+        /* Gaya untuk teks yang akan berubah */
+        #target-teks {
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 30px;
+            min-height: 60px; /* Menjaga layout tetap stabil saat teks berubah */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s ease;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* Gaya untuk tombol */
+        .btn-custom {
+            background-color: #ff7e5f;
+            background: linear-gradient(to right, #feb47b, #ff7e5f);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-custom:active {
+            transform: translateY(-1px);
+        }
+
+        /* Efek animasi saat teks berubah */
+        .fade-in {
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div id="target-teks">Hallo</div>
+        <button class="btn-custom" onclick="gantiTeks()">Jangan Klik di Sini</button>
+    </div>
+
+    <script>
+        function gantiTeks() {
+            const teks = document.getElementById("target-teks");
+            
+            // Hapus kelas animasi jika ada agar bisa di-trigger ulang
+            teks.classList.remove("fade-in");
+            
+            // Logika perubahan teks
+            if (teks.innerText === "Hallo") {
+                teks.innerText = "Menyala Abangku! 🔥";
+                teks.style.color = "#fff";
+            } else {
+                teks.innerText = "Hallo";
+                teks.style.color = "white";
+            }
+
+            // Tambahkan kembali kelas animasi
+            void teks.offsetWidth; // Trigger reflow untuk mengulang animasi
+            teks.classList.add("fade-in");
+        }
+    </script>
+
+</body>
+</html>
